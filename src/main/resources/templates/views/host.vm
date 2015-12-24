@@ -1,5 +1,5 @@
 #parse("header.vm")
-<input id="hostid" type="hidden" value="${hostid}"/>
+<input id="hostid" type="hidden" value="179eaa5d4f5045fb95b969f09cf4d434"/>
 <div id="wrapper">
     #parse("leftmenu.vm")
     <div id="page-wrapper" class="gray-bg dashbard-1">

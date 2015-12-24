@@ -28,6 +28,7 @@ public class MenusService {
 	    		mb.setMenuUrl(menu.getMenuurl());
 	    		mb.setMenuIcon(menu.getIcon());
 	    		mb.setChildMenus(getChildMenus(menu.getMenuid(),menus));
+	    		menuList.add(mb);
     		}
     	}
     	return menuList;

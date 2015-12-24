@@ -30,4 +30,5 @@ public class HostController {
 		mv.addObject("hostid", hostid);
 		return mv;
 	}
+	
 }

@@ -68,7 +68,55 @@
 </nav>
 <script>
 	function initMenu(){
-		
+	    //alert('11');
+		$.ajax({
+	        async: false,
+	        type : "post",
+	        url : '/menuslogs',
+	        //data: param,
+	        dataType : 'json',
+	        complete: function(msg){
+	            //alert('complete');
+	        },
+	        success : function(data) {
+	        	var str="";
+		        if(data){
+		        	for(var i=0,len=data.length;i<len;i++){
+		        		var childlen=data[i].childMenus.length;
+		        		var childstr='';
+		        		var iconhtml = '';
+		        		if(childlen>0){
+		        			childstr +='<ul class="nav nav-second-level">';
+		        			for(var j=0;j<childlen;j++){
+		        				childstr +='<li>'+getLevelText()+'</li>';
+		        			}
+		        			childstr +='</ul>';
+		        			iconhtml = '<span class="fa arrow"></span>';
+		        		}
+		        		var url = kong(data[i].menuUrl) === ""?"#":data[i].menuUrl;
+		        		str +='<li id="main_"+i><a href="'+url+'"><i class="fa '+data[i].menuIcon+'"></i>' 
+		        		+'<span class="nav-label">'+data[i].menuText+'</span>'+iconhtml+'</a>'+childstr+'</li>';
+		        	}
+		        	$("#side-menu").append(str);
+		        }
+	            console.log(data);
+	            //alert('data');
+	        }
+	    });
 	}
-	initMenu();
+	
+	function getLevelText(){
+		var '<a href="'+data[i].childMenus[j].menuUrl+'">'+data[i].childMenus[j].menuText+'</a>';
+	}
+	
+	function getLevelIcon(){
+		var iconhtml = '<span class="fa arrow"></span>';
+		return iconhtml;
+	}
+	
+	function kong(val){
+		var result = val;
+		if (typeof val === 'undefined' || val === '' || val === 'undefined' || val === null) result = "";
+		return result;
+	}
 </script>
