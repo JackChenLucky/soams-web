@@ -27,4 +27,11 @@ public class HostCpuLogsService {
 		map.put("size",size);
 		return mapper.getLastCpuLogs(map);
 	}
+	
+	public List<HostCpuLogs> getLastCpuLogsDTO(String hostid,Integer size){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("hostid", hostid);
+		map.put("size",size);
+		return mapper.getLastCpuLogsDTO(map);
+	}
 }

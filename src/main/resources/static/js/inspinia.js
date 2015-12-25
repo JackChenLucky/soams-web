@@ -1,8 +1,5 @@
 // Custom scripts
 $(document).ready(function () {
-
-    // MetsiMenu
-    $('#side-menu').metisMenu();
  
     // Collapse ibox function
     $('.collapse-link:not(.binded)').addClass("binded").click( function() {
@@ -83,7 +80,11 @@ $(document).ready(function () {
     $("[data-toggle=popover]")
         .popover();
     
-	initMenu();
+	initMenu(function(){
+		// MetsiMenu
+	    $('#side-menu').metisMenu();
+	});
+
 });
 
 

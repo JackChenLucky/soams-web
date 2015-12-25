@@ -1,2 +1,19 @@
 </body>
+	<!-- <div class="footer" style="position: fixed;bottom: 0px;right: 0px;">
+		<div class="pull-right">
+			10GB of <strong>250GB</strong>
+			Free.
+		</div>
+		<div style="text-align:center;"> <strong>Copyright</strong>
+			Example Company © 2014-2015
+		</div>
+	</div>  -->
+	<div class="footer" style="position: fixed;bottom: 0px;right: 0px;">
+        <div class="pull-right">
+            10GB of <strong>250GB</strong> Free.
+        </div>
+        <div>
+            <strong>Copyright</strong> Example Company &copy; 2014-2015
+        </div>
+    </div>
 </html>

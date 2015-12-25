@@ -1,5 +1,7 @@
 #parse("header.vm")
-<input id="hostid" type="hidden" value="179eaa5d4f5045fb95b969f09cf4d434"/>
+
+<link href="css/plugins/chosen/chosen.css" rel="stylesheet">
+<input id="hostid" type="hidden" value="$!hostid"/>
 <div id="wrapper">
     #parse("leftmenu.vm")
     <div id="page-wrapper" class="gray-bg dashbard-1">
@@ -13,18 +15,18 @@
                             <div class="title-img">
                                 <img class="img-rounded img-responsive" alt="" style="border-radius: 22%;width:120px;height:120px;" ng-src="img/centos.svg" src="img/centos.svg"></div>
                             <div class="title-has-img">
-                                <h2 style="word-break: break-all;" class="ng-binding">服务器28</h2>
+                                <h2 style="word-break: break-all;" class="ng-binding">$!host.othername</h2>
                                 <div style="margin-top:10px;">
                                     <span class="text-muted">状态:</span>
                                     <span ng-class="{'text-disabled': !node.is_connected, 'text-success': node.is_connected &amp;&amp; node.health_status === 0, 'text-warning': node.is_connected &amp;&amp; node.health_status === 1, 'text-danger': node.is_connected &amp;&amp; node.health_status === 2, }" class="text-success">
-                                        <span ng-show="node.is_connected" class="ng-binding" aria-hidden="false">正常</span>
+                                        <span ng-show="node.is_connected" class="ng-binding" aria-hidden="false">$!statusmc</span>
                                     </span>
                                 </div>
                                 <div>
                                     <span class="text-muted">IP:</span>
                                     <span>
                                         <!-- ngRepeat: add in node.node_addrs -->
-                                        <span ng-repeat="add in node.node_addrs" class="ng-binding ng-scope">192.168.188.28</span>
+                                        <span ng-repeat="add in node.node_addrs" class="ng-binding ng-scope">$!host.ip</span>
                                         <!-- end ngRepeat: add in node.node_addrs --> </span>
                                     <span class="text-muted">外网:</span>
                                     <span>
@@ -33,7 +35,7 @@
                                 </div>
                                 <div>
                                     <span class="text-muted">主机名:</span>
-                                    <span class="ng-binding">vm28</span>
+                                    <span class="ng-binding">$!host.hostname</span>
                                 </div>
                                 <div>
                                     <span class="text-muted">Java版本:</span>
@@ -42,14 +44,14 @@
                                 <!-- ngIf: node.cloud_provider==='sandbox' -->
                                 <div>
                                     <span class="text-muted">操作系统:</span>
-                                    <span class="ng-binding">CentOS Linux 7 (Core)</span>
+                                    <span class="ng-binding">$!host.osversion</span>
                                 </div>
                                 <!-- <div class="nodeTag" style="position:relative;">
                                 <span class="text-muted" style="">部署标签:</span>
                                 <div class="tag" ng-repeat="tag in tags">{{tag}}</div>
                             </div>
                             -->
-                            <div>
+                            <div id="bqnr">
                                 <span class="text-muted">标签:</span>
                                 <span class="badge badge-primary">EBS服务器</span> 
                                 <span class="badge badge-information">tomcat</span> 
@@ -81,7 +83,83 @@
                                 </div>
 
                                 <div id="tab-2" class="tab-pane" style="padding-top:15px;">
-									1212121
+                                	<!-- <div class="form-group"><label class="col-sm-2 control-label">编辑</label>
+
+	                                    <div class="col-sm-10">
+	                                        <div class="input-group m-b">
+	                                            <div class="input-group-btn">
+	                                                <button tabindex="-1" class="btn btn-white" type="button">标签样式</button>
+	                                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button"><span class="caret"></span></button>
+	                                                <ul class="dropdown-menu">
+	                                                    <li><a href="#">Plain</a></li>
+	                                                    <li><a href="#">Primary</a></li>
+	                                                    <li><a href="#">Information</a></li>
+	                                                    <li><a href="#">Success</a></li>
+	                                                    <li><a href="#">Warning</a></li>
+	                                                    <li><a href="#">Danger</a></li>
+	                                                </ul>
+	                                            </div>
+	                                            <input type="text" class="form-control"></div>
+	                                        
+	                                    </div>
+	                                </div>
+	                                <div class="hr-line-dashed"></div> -->
+	                                
+	                                <form method="get" class="form-horizontal">
+	                                <input type="hidden" name="hostid" value="$!hostid" />
+	                                <div class="form-group"><label class="col-sm-2 control-label">服务器名称</label>
+	                                    <div class="col-sm-10"><input id="othername" name="othername" type="text" 
+	                                    	class="form-control m-b" value="$!host.othername" /></div>
+	                                </div>
+	                                <!-- 
+	                                <div class="form-group"><label class="col-sm-2 control-label">标签样式</label>
+
+	                                    <div class="col-sm-10">
+		                                    <select class="form-control m-b" name="bqys" id="bqys">
+		                                        <option>badge</option>
+		                                        <option>label</option>
+		                                        <option>progress Bar</option>
+		                                    </select>
+	                                    </div>
+	                                </div>
+	                                 -->
+	                                <div class="form-group"><label class="col-sm-2 control-label">标签名称</label>
+	                                    <div class="col-sm-10"><input id="bqmc" name="bqmc" type="text" class="form-control m-b" />
+	                                    </div>
+	                                </div>
+	                                <div class="form-group"><label class="col-sm-2 control-label">标签颜色</label>
+
+	                                    <div class="col-sm-10">
+		                                    <select class="form-control m-b" name="color" id="color" onChange="savebq()">
+		                                        <option>plain</option>
+		                                        <option>primary</option>
+		                                        <option>information</option>
+		                                        <option>success</option>
+		                                        <option>warning</option>
+		                                        <option>danger</option>
+		                                    </select>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+	                                	<label class="col-sm-2 control-label">标签预览</label>
+							            <div class="col-sm-10">
+							                <div id="bqyl">
+				                                <span class="badge badge-primary">EBS服务器 <a class="chosen-a-close" onclick="delbq(this);"></a></span> 
+				                                <span class="badge badge-information">tomcat<a class="chosen-a-close" onclick="delbq(this);"></a></span> 
+				                                <span class="badge badge-success">java7<a class="chosen-a-close" onclick="delbq(this);"></a></span>
+				                            </div>
+						        		</div>
+					                </div>
+	                                <div class="form-group">
+	                                    <div class="col-sm-4 col-sm-offset-2">
+	                                        <!-- <button class="btn btn-white" type="submit">取消</button> -->
+	                                        <button class="btn btn-primary" type="button" onclick = "save();">保存</button>
+	                                    </div>
+	                                </div>
+                                </form>
+									<!-- <textarea>green|EBS服务器,gray|tomcat1,blue|java7</textarea> 
+									<input id="bq" value="#1ab394|EBS服务器,#d1dade|tomcat,#1c84c6|java7" />
+									<input id="tj" value="提交" type="button" onclick = "savebq();"/> -->
                                 </div>
                             </div>
 
@@ -101,11 +179,15 @@
         </div>
     </div>
 </div>
+
 <!-- Mainly scripts -->
 <script src="js/jquery-2.1.1.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Chosen -->
+<script src="js/plugins/chosen/chosen.jquery.js"></script>
 
 <!-- Peity -->
 <script src="js/plugins/peity/jquery.peity.min.js"></script>
@@ -115,6 +197,7 @@
 
 <!-- Custom and plugin javascript -->
 <script src="js/inspinia.js"></script>
+
 <script src="js/plugins/pace/pace.min.js"></script>
 
 <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -129,5 +212,7 @@
 
 <script src="js/system/host.js"></script>
 
-<script></script>
+<script>
+	
+</script>
 #parse("footer.vm")

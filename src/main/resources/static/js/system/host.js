@@ -584,3 +584,73 @@ function initDiskChart(rslt){
 		window.onresize = diskmainChart.resize;
 	}
 }
+
+function savebq(){
+	
+	var bqys="",color="",bqmc="";
+	color =$("#color").val();
+	bqmc = $("#bqmc").val();
+	if(kong(bqmc) === ""){
+		alert("请填写标签名称");
+		return;
+	}
+	var span="";
+	span = '<span class="badge badge-'+color+'">'+bqmc+'<span name="bq_nr" value="'+color+"|"+bqmc+'"></span> <a class="chosen-a-close" onclick="delbq(this);"></a></span>';
+	$("#bqyl").append(span);
+}
+
+function kong(val){
+	var result = val;
+	if (typeof val === 'undefined' || val === '' || val === 'undefined' || val === null) result = "";
+	return result;
+}
+
+function delbq(_this){
+	$(_this).parent().remove();
+}
+
+function save(){
+	var str = $("span[name='bq_nr']");
+	var labels ="";
+	$.each(str,function(i,v){
+		labels +=$(v).attr('value')+"@";
+	});
+	if(labels.length>0){
+		labels = labels.substr(0,labels.length-1);
+	}
+	alert(labels);
+	var othername ="";
+	othername = $("#othername").val();
+	if(kong(othername) === ""){
+		alert("请填写服务器名称！");
+		return;
+	}
+	var hostid = $("#hostid").val();
+	var param ={};
+	param.othername = othername;
+	param.labels = labels;
+	param.hostid = hostid;
+	
+	$.ajax({
+        async: false,
+        type : "post",
+        url : '/hostslogsedit',
+        data: param,
+        dataType : 'json',
+        complete: function(msg){
+            //alert('complete');
+        },
+        success : function(data) {
+	        if(data == 1){
+	        	location.href = "hosts?hostid="+hostid;
+	        }else{
+	        	alert("保存失败！");
+	        }
+        },
+        error: function(){
+        	alert("保存失败！");
+        }
+    });
+	
+}
+

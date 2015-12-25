@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 
+import sckj.soams.bean.MemoryLogsBean;
 import sckj.soams.bean.MemorySwapBean;
 import sckj.soams.entity.MemoryLogs;
 
@@ -114,4 +115,18 @@ public interface MemoryLogsMapper {
         @Result(column="swap", property="swap", jdbcType=JdbcType.VARCHAR)
     })
 	List<MemorySwapBean> getLastMemLogs(Map<String, Object> map);
+    
+    @Select({
+        "select recdt,hostid,total,used,free,used/total bfb from memory_logs ",
+        "where hostid = #{hostid} order by recdt desc limit 0,#{size}"
+    })
+    @Results({
+    	@Result(column="recdt", property="recdt", jdbcType=JdbcType.TIMESTAMP, id=true),
+        @Result(column="hostid", property="hostid", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="total", property="total", jdbcType=JdbcType.VARCHAR),
+        @Result(column="used", property="used", jdbcType=JdbcType.VARCHAR),
+        @Result(column="free", property="free", jdbcType=JdbcType.VARCHAR),
+        @Result(column="bfb", property="bfb", jdbcType=JdbcType.DECIMAL)
+    })
+	List<MemoryLogsBean> getLastMemLogsBean(Map<String, Object> map);
 }

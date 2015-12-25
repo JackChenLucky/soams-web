@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import sckj.soams.Constants;
 import sckj.soams.entity.HostCpuInfo;
 import sckj.soams.entity.Hosts;
 import sckj.soams.service.HostCpuInfoService;
@@ -28,6 +29,10 @@ public class HostController {
 		HostCpuInfo hci = hostCpuInfoService.getHostCpuInfo(hostid);
 		mv.addObject("hostcpu", hci);
 		mv.addObject("hostid", hostid);
+		if(host != null){
+			mv.addObject("statusmc", Constants.HOST_STATUS.get(host.getStatus()));
+		}
+		
 		return mv;
 	}
 	
