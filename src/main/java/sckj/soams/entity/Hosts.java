@@ -258,4 +258,34 @@ public class Hosts {
     public void setLabels(String labels) {
         this.labels = labels;
     }
+    
+    private String osname;
+    
+    public String getOsname() {
+        return osname;
+    }
+    
+    public void setOsname(String osname) {
+        this.osname = osname;
+    }
+    
+    private String osversion;
+    
+    public String getOsversion() {
+        return osversion;
+    }
+    
+    public void setOsversion(String osversion) {
+        this.osversion = osversion;
+    }
+    
+    private String osarch;
+    
+    public String getOsarch() {
+        return osarch;
+    }
+    
+    public void setOsarch(String osarch) {
+        this.osarch = osarch;
+    }
 }

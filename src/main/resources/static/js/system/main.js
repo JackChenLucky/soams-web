@@ -1,7 +1,5 @@
 $(function(){
-	initChart({id:'main',name:'cpu',val:12.67});
-	initChart({id:'main2',name:'内存',val:65.67});
-	initChart({id:'main3',name:'磁盘',val:98.67});
+	
 })
 
 function initChart(obj){

@@ -89,84 +89,15 @@
                 </div>
             </div>
         </div>
-        <div class="row wrapper wrapper-content">
-                <div class="col-sm-4">
-                    <div class="ibox " style="hover:">
-                        <div class="ibox-host-title">
-                        	<div class="feed-element">
-                                                    <a href="profile.html" class="pull-left">
-                                                        <img alt="image" class="img-circle" src="img/windows.png">
-                                                    </a>
-                                                    <div class="media-body">
-                                                       <div>
-                                                        <h2 style="margin-top:0px;margin-bottom:5px;"><a href="profile.html">服务器29</a></h2>
-                                                       </div>
-                                                        <i class="fa fa-circle online"></i><small class="text-muted"> 192.168.188.29</small>
-                                                    </div>
-                                                </div>
-                        </div>
-                        <div class="ibox-content">
-                           <div class="row">
-                              <div class="col-sm-4" style="padding:0px;">
-                              	<div id="main" class="main" style="height:100px;"></div>
-                              </div>
-                              <div class="col-sm-4" style="padding:0px;">
-                              	<div id="main2" class="main" style="height:100px;"></div>
-                              </div>
-                              <div class="col-sm-4" style="padding:0px;">
-                              	<div id="main3" class="main" style="height:100px;"></div>
-                              </div>
-                           </div>
-                        </div>
-                    </div>
-                </div>
-                 <div class="col-sm-4">
-                    <div class="ibox ">
-                        <div class="ibox-host-title">
-                        	<div class="feed-element">
-                                                    <a href="profile.html" class="pull-left">
-                                                       <img alt="image" class="img-circle" src="img/ubuntu.png">
-                                                    </a>
-                                                    <div class="media-body">
-                                                       <div>
-                                                        <h2 style="margin-top:0px;margin-bottom:5px;">服务器29</h2>
-                                                       </div>
-                                                        <i class="fa fa-circle"></i><small class="text-muted"> 192.168.188.29</small>
-                                                    </div>
-                                                </div>
-                        </div>
-                        <div class="ibox-content">
-                        </div>
-                    </div>
-                </div>
-				 <div class="col-sm-4">
-                    <div class="ibox ">
-                        <div class="ibox-host-title">
-                        	<div class="feed-element">
-                                                    <a href="profile.html" class="pull-left">
-                                                       <img alt="image" class="img-circle" src="img/centos.png">
-                                                    </a>
-                                                    <div class="media-body">
-                                                       <div>
-                                                        <h2 style="margin-top:0px;margin-bottom:5px;">服务器29</h2>
-                                                       </div>
-                                                        <i class="fa fa-circle outline"></i><small class="text-muted"> 192.168.188.29</small>
-                                                    </div>
-                                                </div>
-                        </div>
-                        <div class="ibox-content">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div id="zyfwq" class="row wrapper wrapper-content">
+                
         </div>
     </div>
 </div>
 <!-- Mainly scripts -->
 <script src="js/jquery-2.1.1.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
 <!-- Flot -->
@@ -180,8 +111,6 @@
 <script src="js/plugins/peity/jquery.peity.min.js"></script>
 <script src="js/demo/peity-demo.js"></script>
 
-<!-- Custom and plugin javascript -->
-<script src="js/inspinia.js"></script>
 <script src="js/plugins/pace/pace.min.js"></script>
 
 <!-- jQuery UI -->
@@ -203,6 +132,11 @@
 <script src="js/plugins/toastr/toastr.min.js"></script>
 
 <script src="js/plugins/echarts/echarts.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="js/inspinia.js"></script>
+
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
 <script src="js/system/main.js"></script>
 
@@ -336,6 +270,73 @@
         };
         var ctx = document.getElementById("polarChart").getContext("2d");
         var Polarchart = new Chart(ctx).PolarArea(polarData, polarOptions);
+        
+        initym();
       });
+    
+    function initym(){
+    	var param ={};
+    	$.ajax({
+	        async: false,
+	        type : "post",
+	        url : '/hostslogs',
+	        data: param,
+	        dataType : 'json',
+	        complete: function(msg){
+	            //alert('complete');
+	        },
+	        success : function(data) {console.log(data);
+	        	var str="";
+	        	var len=0;
+		        if(data){
+		        	len=data.length;
+		        	for(var i=0;i<len;i++){
+		        		var src = kong(data[i].osversion) === ""?"":("img/"+data[i].osversion+".png");
+		        		var sclass="";
+		        		if(kong(data[i].status) === "1"){
+		        			sclass ="fa fa-circle online";
+		        		}else if(kong(data[i].status) === "0"){
+		        			sclass ="fa fa-circle outline";
+		        		}else if(kong(data[i].status) === "2"){
+		        			sclass ="fa fa-circle";
+		        		}else{
+		        			sclass ="";
+		        		}
+		        		var div1="",div2="";
+		        		
+		        		div1 +='<div class="ibox-host-title"><div class="feed-element">' 
+		        		+'<a href="'+"hosts?hostid="+data[i].hostid+'" class="pull-left"><img alt="image" class="img-circle" src="'+src+'">'
+		        		+'</a><div class="media-body"><div><h2 style="margin-top:0px;margin-bottom:5px;">'
+		        		+'<a href="'+"hosts?hostid="+data[i].hostid+'">'+kong(data[i].othername)+'</a></h2>'
+		        		+'</div><i class="'+sclass+'"></i><small class="text-muted">'+kong(data[i].ip)+'</small></div></div></div>';
+		        		
+		        		div2 +='<div class="ibox-content"><div class="row">'
+		        		+'<div class="col-sm-4" style="padding:0px;"><div id="main'+i+'_1" class="main" style="height:100px;"></div></div>'
+		        		+'<div class="col-sm-4" style="padding:0px;"><div id="main'+i+'_2" class="main" style="height:100px;"></div></div>'
+		        		+'<div class="col-sm-4" style="padding:0px;"><div id="main'+i+'_3" class="main" style="height:100px;"></div></div></div></div>';
+		        		
+		        		str +='<div class="col-sm-4"><div class="ibox " style="hover:">'+div1+div2+'</div></div>';
+		        		
+		        	}
+		        	$("#zyfwq").append(str);
+			    	setmenu(data);
+		        }
+	        }
+	    });
+    }
+    
+    function kong(val){
+		var result = val;
+		if (typeof val === 'undefined' || val === '' || val === 'undefined' || val === null) result = "";
+		return result;
+	}
+    
+    function setmenu(data){
+    	for(var i=0,len=data.length;i<len;i++){
+    		initChart({id:'main'+i+'_1',name:'cpu',val:data[i].map.cpu});
+    		initChart({id:'main'+i+'_2',name:'内存',val:data[i].map.memory});
+    		initChart({id:'main'+i+'_3',name:'磁盘',val:data[i].map.disk});
+    	}
+    }
 </script>
 #parse("footer.vm")
