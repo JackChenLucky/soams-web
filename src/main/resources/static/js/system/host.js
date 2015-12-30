@@ -618,7 +618,6 @@ function save(){
 	if(labels.length>0){
 		labels = labels.substr(0,labels.length-1);
 	}
-	alert(labels);
 	var othername ="";
 	othername = $("#othername").val();
 	if(kong(othername) === ""){

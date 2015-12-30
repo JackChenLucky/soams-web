@@ -53,9 +53,9 @@
                             -->
                             <div id="bqnr">
                                 <span class="text-muted">标签:</span>
-                                <span class="badge badge-primary">EBS服务器</span> 
-                                <span class="badge badge-information">tomcat</span> 
-                                <span class="badge badge-success">java7</span>
+                                #foreach($bqxx in $!bqmclist)
+                                <span class="badge badge-$bqxx.color">$bqxx.bqmc</span> 
+                                #end
                             </div>
                         </div>
                     </div>
@@ -83,27 +83,6 @@
                                 </div>
 
                                 <div id="tab-2" class="tab-pane" style="padding-top:15px;">
-                                	<!-- <div class="form-group"><label class="col-sm-2 control-label">编辑</label>
-
-	                                    <div class="col-sm-10">
-	                                        <div class="input-group m-b">
-	                                            <div class="input-group-btn">
-	                                                <button tabindex="-1" class="btn btn-white" type="button">标签样式</button>
-	                                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button"><span class="caret"></span></button>
-	                                                <ul class="dropdown-menu">
-	                                                    <li><a href="#">Plain</a></li>
-	                                                    <li><a href="#">Primary</a></li>
-	                                                    <li><a href="#">Information</a></li>
-	                                                    <li><a href="#">Success</a></li>
-	                                                    <li><a href="#">Warning</a></li>
-	                                                    <li><a href="#">Danger</a></li>
-	                                                </ul>
-	                                            </div>
-	                                            <input type="text" class="form-control"></div>
-	                                        
-	                                    </div>
-	                                </div>
-	                                <div class="hr-line-dashed"></div> -->
 	                                
 	                                <form method="get" class="form-horizontal">
 	                                <input type="hidden" name="hostid" value="$!hostid" />
@@ -111,18 +90,6 @@
 	                                    <div class="col-sm-10"><input id="othername" name="othername" type="text" 
 	                                    	class="form-control m-b" value="$!host.othername" /></div>
 	                                </div>
-	                                <!-- 
-	                                <div class="form-group"><label class="col-sm-2 control-label">标签样式</label>
-
-	                                    <div class="col-sm-10">
-		                                    <select class="form-control m-b" name="bqys" id="bqys">
-		                                        <option>badge</option>
-		                                        <option>label</option>
-		                                        <option>progress Bar</option>
-		                                    </select>
-	                                    </div>
-	                                </div>
-	                                 -->
 	                                <div class="form-group"><label class="col-sm-2 control-label">标签名称</label>
 	                                    <div class="col-sm-10"><input id="bqmc" name="bqmc" type="text" class="form-control m-b" />
 	                                    </div>
@@ -144,9 +111,10 @@
 	                                	<label class="col-sm-2 control-label">标签预览</label>
 							            <div class="col-sm-10">
 							                <div id="bqyl">
-				                                <span class="badge badge-primary">EBS服务器 <a class="chosen-a-close" onclick="delbq(this);"></a></span> 
-				                                <span class="badge badge-information">tomcat<a class="chosen-a-close" onclick="delbq(this);"></a></span> 
-				                                <span class="badge badge-success">java7<a class="chosen-a-close" onclick="delbq(this);"></a></span>
+				                                #foreach($bqxx in $!bqmclist)
+				                                <span class="badge badge-$bqxx.color">$bqxx.bqmc<span name="bq_nr" value="$bqxx.color|$bqxx.bqmc"></span>
+				                                <a class="chosen-a-close" onclick="delbq(this);"></a></span> 
+				                                #end
 				                            </div>
 						        		</div>
 					                </div>

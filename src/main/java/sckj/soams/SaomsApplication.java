@@ -56,6 +56,6 @@ public class SaomsApplication  implements EmbeddedServletContainerCustomizer {
 	@Override
 	public void customize(ConfigurableEmbeddedServletContainer container) {
 		// TODO Auto-generated method stub
-		container.setPort(8088); 
+		container.setPort(80); 
 	}
 }
