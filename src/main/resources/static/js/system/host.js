@@ -85,7 +85,7 @@ function initNetChart(){
 			yAxis : [ {
 				type : 'value',
 				axisLabel : {
-					formatter : '{value} %'
+					formatter : '{value} kb'
 				}
 			} ],
 			grid : {

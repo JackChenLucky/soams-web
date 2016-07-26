@@ -35,8 +35,8 @@ public class NetRestController {
 		for(i=0;i<netLogs.size();i++){
 			HostNetLogs hnl = netLogs.get(i);
 			categorys.add(sdf.format(hnl.getRecdt()));
-			seriesIn.add(Double.valueOf(hnl.getRxbps()));
-			seriesOut.add(Double.valueOf(hnl.getTxbps()));
+			seriesIn.add(Double.valueOf(Long.parseLong(hnl.getRxbps())/1024));
+			seriesOut.add(Double.valueOf(Long.parseLong(hnl.getTxbps())/1024));
 		}
 		series.add(new Series("Rxbps", "line", seriesIn));
 		

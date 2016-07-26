@@ -20,7 +20,7 @@ public class SaomsApplication  implements EmbeddedServletContainerCustomizer {
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource primaryDataSource() {
-        System.out.println("-------------------- DataSource init ---------------------");
+        System.out.println("DataSource init");
         return DataSourceBuilder.create().build();
     }
 
@@ -55,7 +55,6 @@ public class SaomsApplication  implements EmbeddedServletContainerCustomizer {
 
 	@Override
 	public void customize(ConfigurableEmbeddedServletContainer container) {
-		// TODO Auto-generated method stub
 		container.setPort(80); 
 	}
 }

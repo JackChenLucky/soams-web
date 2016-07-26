@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sckj.soams.bean.DiskInfoBean;
 import sckj.soams.entity.HostDiskInfo;
@@ -20,6 +21,7 @@ public class HostDiskInfoService {
 	 * @param hostid
 	 * @return
 	 */
+	@Transactional
 	public DiskInfoBean getDiskInfo(String hostid) {
 		DiskInfoBean dib = new DiskInfoBean();
 		List<HostDiskInfo> hdiList = mapper.getHostDiskInfo(hostid);
@@ -32,6 +34,9 @@ public class HostDiskInfoService {
 			for (HostDiskInfo hdi : hdiList) {
 				tot = tot + ServiceUtils.getRealValue(hdi.getTotal());
 				free = free + ServiceUtils.getRealValue(hdi.getFree());
+				hdi.setUsed(df.format((float)Long.parseLong(hdi.getUsed())/1024/1024) + "G");
+				hdi.setTotal(df.format((float)Long.parseLong(hdi.getTotal())/1024/1024) + "G");
+				hdi.setUsaged(Double.parseDouble(hdi.getUsaged())*100+"%");
 			}
 			used = tot-free;
 			usage = used/tot*100;
